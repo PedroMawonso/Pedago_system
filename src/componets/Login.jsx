@@ -1,8 +1,59 @@
 import React from 'react'
+import graduacao from '../assets/graduacao.png'
 
 function Login() {
   return (
-    <div>Login</div>
+    <div className='flex w-screen h-screen justify-center items-center '>
+      
+      <div className='max-w-md space-y-4 rounded-xl bg-[#ffffff] p-8 w-110 shadow-2xl'>
+        <div className='flex items-center justify-center'>
+          <img src={graduacao} alt="Logo_do_sistema"
+          className='w-20 h-20'
+          />
+        </div>
+        <h1 className='text-center text-3xl font-bold'>Sistema Acadêmico</h1>
+
+        <p className='text-center text-gray-500'>Gestão Pedagógica Completa</p>
+
+        <div className=' space-y-6'>
+            <div className='space-y-3'>
+
+                <div className='text-sm'>
+                  <label htmlFor="email">Email do usuário</label>
+                </div>
+                <div>
+                  <input type="text" placeholder='usuario@gmail.com'
+                  className='w-full bg-gray-300 focus: outline-gray-500 pl-4 p-2 rounded-md ' required />
+                </div>
+
+            </div>
+
+            <div className='space-y-3'>
+
+                <div className='text-sm'>
+                  <label htmlFor="email">Senha</label>
+                </div>
+                <div>
+                  <input type="password" placeholder='*******'
+                  className='w-full bg-gray-300 focus: outline-gray-500 pl-4 p-2 rounded-md' required />
+                </div>
+
+            </div>
+
+            <div className=''>
+                <div>
+                  <input type="submit" value={"Entrar ao Sistema"}
+                  className='w-full pl-4 p-3 rounded-md
+                  cursor-pointer bg-[#030213] mt-2 text-white font-bold' />
+              
+                </div>
+            </div>
+
+             <p className='text-center text-md text-gray-500'>Acesso restrito a funcionários autorizados</p>
+        </div>
+      
+      </div>
+    </div>
   )
 }
 
