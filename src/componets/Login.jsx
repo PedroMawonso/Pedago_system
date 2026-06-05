@@ -18,7 +18,7 @@ function Login() {
         <div className=' space-y-6'>
             <div className='space-y-3'>
 
-                <div className='text-sm'>
+                <div className='text-sm font-semibold'>
                   <label htmlFor="email">Email do usuário</label>
                 </div>
                 <div>
@@ -30,8 +30,9 @@ function Login() {
 
             <div className='space-y-3'>
 
-                <div className='text-sm'>
+                <div className='text-sm flex justify-between w-94 font-semibold' >
                   <label htmlFor="email">Senha</label>
+                  <a href="#" className='text-blue-600'>Esqueceu?</a>
                 </div>
                 <div>
                   <input type="password" placeholder='*******'
