@@ -10,8 +10,8 @@ function Login() {
         'h-screen',
         'justify-center',
         'items-center',
-      )}
-    >
+      
+      )}>
       <div
         className={cn(
           'max-w-md',
@@ -21,8 +21,7 @@ function Login() {
           'p-8',
           'w-110',
           'shadow-2xl',
-        )}
-      >
+        )}>
         <div className={cn('flex', 'items-center', 'justify-center')}>
           <img
             src={graduacao}
@@ -33,11 +32,9 @@ function Login() {
         <h1 className={cn('text-center', 'text-3xl', 'font-bold')}>
           Sistema Acadêmico
         </h1>
-
         <p className={cn('text-center', 'text-gray-500')}>
           Gestão Pedagógica Completa
         </p>
-
         <div className=' space-y-6'>
           <div className='space-y-3'>
             <div className='text-sm'>
@@ -66,8 +63,7 @@ function Login() {
               <label htmlFor='email'>Senha</label>
               <a
                 href='#'
-                className={cn('font-semibold', 'text-blue-600')}
-              >
+                className={cn('font-semibold', 'text-blue-600')}>
                 Esqueceu?
               </a>
             </div>

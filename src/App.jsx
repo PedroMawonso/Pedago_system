@@ -1,25 +1,22 @@
 import React from 'react';
-import Login from './componets/Login';
+import Login from './pages/Login';
 import Sidebar from './componets/Sidebar';
+import Header from './componets/Header';
 import { twMerge as cn } from 'tailwind-merge';
 
 function App() {
   return (
     <div
       className={cn(
-        'bg-linear-to-r',
-        'from',
-        'bg-blue-50',
-        'to',
-        'bg-indigo-100',
-        'to',
-        'bg-purple-20',
+        'bg-gradient-to-r',
+        'from-blue-50',
+        'to-bg-purple-200',
         'w-screen',
         'h-screen',
-      )}
-    >
-     {/*  <Login></Login> */}
-      <Sidebar></Sidebar> 
+      )}>
+{/*       <Header></Header> */}
+      <Sidebar></Sidebar>
+   {/*    <Login></Login> */}
     </div>
   );
 }
