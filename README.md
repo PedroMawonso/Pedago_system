@@ -1,16 +1,12 @@
-# React + Vite
+# Pedado System v.1.0
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Overview 
 
-Currently, two official plugins are available:
+This project aims to develop an academic solution that will allow teachers to enter their students' grades from anywhere, without needing to travel to the institution.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The project is still under development.
 
-## React Compiler
+# How to run
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. First, run the command **`npm install`** -> installs the dependencies used for the system to run.
+2. Then, **`npm install @fontsource/inter`** -> Installs the inter font in the node modules directory.

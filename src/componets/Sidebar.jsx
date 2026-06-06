@@ -19,7 +19,23 @@ function Sidebar() {
             <p className={cn('text-sm', 'text-gray-500')}>Gestão Pedagógica</p>
           </div>
         </div>
-      nav
+
+        <nav>
+          <ul>
+            <li>
+              <a href='#'>Dashbord</a>
+            </li>
+            <li>
+              <a href='#'>D</a>
+              <li>
+                <a href='#'>Dashbord</a>
+              </li>
+              <li>
+                <a href='#'>Dashbord</a>
+              </li>
+            </li>
+          </ul>
+        </nav>
       </aside>
     </div>
   );
