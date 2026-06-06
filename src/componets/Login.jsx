@@ -40,7 +40,7 @@ function Login() {
 
         <div className=' space-y-6'>
           <div className='space-y-3'>
-            <div className='text-sm font-semibold'>
+            <div className='text-sm'>
               <label htmlFor='email'>Email do usuário</label>
             </div>
             <div>
@@ -52,7 +52,8 @@ function Login() {
                   'bg-gray-300',
                   'focus: outline-gray-500',
                   'pl-4',
-                  'p-2',
+                  'pb-2',
+                  'pt-2',
                   'rounded-md',
                 )}
                 required
@@ -61,18 +62,11 @@ function Login() {
           </div>
 
           <div className='space-y-3'>
-            <div
-              className={cn(
-                'text-sm',
-                'flex justify-between',
-                'w-94',
-                'font-semibold',
-              )}
-            >
+            <div className={cn('text-sm', 'flex justify-between', 'w-94')}>
               <label htmlFor='email'>Senha</label>
               <a
                 href='#'
-                className='text-blue-600'
+                className={cn('font-semibold', 'text-blue-600')}
               >
                 Esqueceu?
               </a>
@@ -81,7 +75,15 @@ function Login() {
               <input
                 type='password'
                 placeholder='*******'
-                className='w-full bg-gray-300 focus: outline-gray-500 pl-4 p-2 rounded-md'
+                className={cn(
+                  'w-full',
+                  'bg-gray-300',
+                  'focus: outline-gray-500',
+                  'pl-4',
+                  'pt-2',
+                  'pb-2',
+                  'rounded-md',
+                )}
                 required
               />
             </div>
@@ -99,7 +101,6 @@ function Login() {
                   'rounded-md',
                   'cursor-pointer',
                   'bg-[#030213]',
-                  'mt-2',
                   'text-white',
                   'font-bold',
                 )}
