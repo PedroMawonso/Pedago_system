@@ -6,37 +6,66 @@ function Login() {
   return (
     <div
       className={cn(
-        'flex w-screen',
+        'flex',
+        'w-screen',
         'h-screen',
         'justify-center',
         'items-center',
       )}>
       <div
         className={cn(
-          'max-w-md',
-          'space-y-4',
+          /* Mobile first */
           'rounded-xl',
+          'w-80',
+          'p-5  ',
           'bg-[#ffffff]',
-          'p-8',
-          'w-110',
           'shadow-2xl',
+          'space-y-2',
+          /* Desktop */
+          'lg:max-w-md',
+          'lg:space-y-4',
+          'lg:p-8',
+          'lg:w-110',
         )}>
         <div className={cn('flex', 'items-center', 'justify-center')}>
           <img
             src={graduacao}
             alt='Logo_do_sistema'
-            className='w-20 h-20'
+            className={cn(
+              /* Mobile first */
+              'w-12',
+              'h-12',
+              /* Desktop */
+              'lg:w-20',
+              'lg:h-20',
+            )}
           />
         </div>
-        <h1 className={cn('text-center', 'text-3xl', 'font-bold')}>
+        <h1
+          className={cn(
+            /* Mobile first */
+            'text-center',
+            'text-lg',
+            'font-bold',
+            /* Desktop */
+            'lg:text-3xl',
+          )}>
           Sistema Acadêmico
         </h1>
-        <p className={cn('text-center', 'text-gray-500')}>
+        <p
+          className={cn(
+            /* Mobile first */
+            'text-center',
+            'text-[12px]',
+            'text-gray-500',
+            /* Desktop */
+            'lg:text-sm',
+          )}>
           Gestão Pedagógica Completa
         </p>
-        <div className=' space-y-6'>
-          <div className='space-y-3'>
-            <div className='text-sm'>
+        <div className=' space-y-4 lg:space-y-6'>
+          <div className='space-y-2 lg:space-y-3'>
+            <div className='text-[12px] lg:text-sm'>
               <label htmlFor='email'>Email do usuário</label>
             </div>
             <div>
@@ -44,25 +73,44 @@ function Login() {
                 type='text'
                 placeholder='usuario@gmail.com'
                 className={cn(
+                  /* Mobile first */
                   'w-full',
-                  'bg-gray-300',
-                  'focus: outline-gray-500',
                   'pl-4',
                   'pb-2',
                   'pt-2',
+                  'bg-gray-300',
+                  'focus: outline-gray-500',
                   'rounded-md',
+                  'text-[12px]',
+                  /* Desktop */
+                  'lg:pl-5',
+                  'lg:pb-3',
+                  'lg:pt-3',
+                  'lg:text-sm',
                 )}
                 required
               />
             </div>
           </div>
 
-          <div className='space-y-3'>
-            <div className={cn('text-sm', 'flex justify-between', 'w-94')}>
+          <div className='space-y-2 lg:space-y-3'>
+            <div
+              className={cn(
+                'text-[12px]',
+                'flex justify-between',
+                'w-70',
+                'lg:text-sm',
+                'lg:w-94',
+              )}>
               <label htmlFor='email'>Senha</label>
               <a
                 href='#'
-                className={cn('font-semibold', 'text-blue-600')}>
+                className={cn(
+                  'text-blue-600',
+                  'text-[11px]',
+                  'lg:text-sm',
+                  'lg:font-bold',
+                )}>
                 Esqueceu?
               </a>
             </div>
@@ -71,41 +119,58 @@ function Login() {
                 type='password'
                 placeholder='*******'
                 className={cn(
+                  /* Mobile first */
                   'w-full',
+                  'pl-4',
+                  'pb-2',
+                  'pt-2',
                   'bg-gray-300',
                   'focus: outline-gray-500',
-                  'pl-4',
-                  'pt-2',
-                  'pb-2',
                   'rounded-md',
+                  'text-[12px]',
+                  /* Desktop */
+                  'lg:pl-5',
+                  'lg:pb-3',
+                  'lg:pt-3',
+                  'lg:text-sm',
                 )}
                 required
               />
             </div>
           </div>
 
-          <div className=''>
+          <div className='mt-5'>
             <div>
               <button
                 type='button'
                 className={cn(
+                  /* Mobile first */
                   'w-full',
-                  'pl-4',
-                  'p-3',
                   'rounded-md',
                   'cursor-pointer',
                   'bg-[#030213]',
                   'text-white',
                   'font-bold',
+                  'text-[12px]',
+                  'p-2',
+                  /* Desktop */
+                  'lg:pl-4',
+                  'lg:p-3',
+                  'lg:text-sm',
                 )}
-                required
-              >
+                required>
                 Entrar no Sistema
               </button>
             </div>
           </div>
 
-          <p className='text-center text-md text-gray-500'>
+          <p
+            className={cn(
+              'text-center',
+              'text-[11px]',
+              'text-gray-500',
+              'lg:text-md',
+            )}>
             Acesso restrito a funcionários autorizados
           </p>
         </div>
