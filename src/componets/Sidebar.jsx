@@ -18,8 +18,17 @@ import {
 
 function Sidebar() {
   return (
-    <div className={cn('flex')}>
-      <aside className={cn('bg-white', 'w-85', 'h-screen', 'space-y-15')}>
+    <div className={cn('flex', 'shadow')}>
+      <aside
+        className={cn(
+          'bg-white',
+          'w-85',
+          'h-screen',
+          'space-y-15',
+          '-translate-x-85',
+          'md:-translate-x-85',
+          'lg:translate-x-0',
+        )}>
         <div
           className={cn('pl-10', 'pt-8', 'flex', 'items-center', 'space-x-5')}>
           <img

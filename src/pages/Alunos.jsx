@@ -2,13 +2,13 @@ import React from 'react';
 import Header from '../componets/Header';
 import Sidebar from '../componets/Sidebar';
 
-function Dashboard() {
+function Alunos() {
   return (
     <div>
       <Header></Header>
-      {<Sidebar></Sidebar>}
+      <Sidebar></Sidebar>
     </div>
   );
 }
 
-export default Dashboard;
+export default Alunos;

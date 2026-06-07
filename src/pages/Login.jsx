@@ -10,7 +10,6 @@ function Login() {
         'h-screen',
         'justify-center',
         'items-center',
-      
       )}>
       <div
         className={cn(
@@ -87,9 +86,8 @@ function Login() {
 
           <div className=''>
             <div>
-              <input
-                type='submit'
-                value={'Entrar ao Sistema'}
+              <button
+                type='button'
                 className={cn(
                   'w-full',
                   'pl-4',
@@ -100,7 +98,10 @@ function Login() {
                   'text-white',
                   'font-bold',
                 )}
-              />
+                required
+              >
+                Entrar no Sistema
+              </button>
             </div>
           </div>
 
