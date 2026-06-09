@@ -22,8 +22,8 @@ function App() {
         'w-screen',
         'h-screen',
       )}>
-       <Login></Login>
-      {/*  <Dashboard></Dashboard> */}
+       {/* <Login></Login> */}
+       <Dashboard></Dashboard>
      {/*  <Professores></Professores> */}
       {/* <Alunos></Alunos> */}
      {/*  <Notas></Notas> */}
