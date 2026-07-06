@@ -1,12 +1,12 @@
-import React from 'react';
-import Header from '../componets/Header';
-import Sidebar from '../componets/Sidebar';
+import React from "react";
+import Header from "../componets/Header";
+import Sidebar from "../componets/Sidebar";
 
 function Alunos() {
   return (
     <div>
-      <Header></Header>
       <Sidebar></Sidebar>
+      <Header></Header>
     </div>
   );
 }
