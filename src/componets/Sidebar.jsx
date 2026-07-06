@@ -47,7 +47,7 @@ function Sidebar({ visible }) {
         )}>
         <div
           className={cn('space-y-20', 'mt-25', 'lg:mt-35', '2xl:space-y-40')}>
-          <nav className={cn('')}>
+          <nav className={cn('max-h-64', 'overflow-y-auto')}>
             <ul className={cn('ml-4', 'space-y-0', 'w-54', 'lg:ml-9')}>
               <li
                 className={cn(
@@ -64,11 +64,11 @@ function Sidebar({ visible }) {
                     'lg:space-x-4',
                     'lg:w-50',
                   )}>
-                  <div className='text-gray-400'>
+                  <div className="text-gray-400">
                     <LayoutDashboard></LayoutDashboard>
                   </div>
                   <a
-                    href='#'
+                    href="#"
                     className={styleMenu}>
                     Dashboard
                   </a>
@@ -88,11 +88,11 @@ function Sidebar({ visible }) {
                   'hover:duration-500',
                 )}>
                 <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className='text-gray-500'>
+                  <div className="text-gray-500">
                     <Users></Users>
                   </div>
                   <a
-                    href='#'
+                    href="#"
                     className={styleMenu}>
                     Professores
                   </a>
@@ -112,11 +112,11 @@ function Sidebar({ visible }) {
                   'hover:duration-500',
                 )}>
                 <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className='text-gray-500'>
+                  <div className="text-gray-500">
                     <CircleUser></CircleUser>
                   </div>
                   <a
-                    href='#'
+                    href="#"
                     className={styleMenu}>
                     Alunos
                   </a>
@@ -136,11 +136,11 @@ function Sidebar({ visible }) {
                   'hover:duration-500',
                 )}>
                 <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className='text-gray-500'>
+                  <div className="text-gray-500">
                     <BookOpen></BookOpen>
                   </div>
                   <a
-                    href='#'
+                    href="#"
                     className={styleMenu}>
                     Cursos
                   </a>
@@ -160,11 +160,11 @@ function Sidebar({ visible }) {
                   'hover:duration-500',
                 )}>
                 <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className='text-gray-500'>
+                  <div className="text-gray-500">
                     <UsersRound></UsersRound>
                   </div>
                   <a
-                    href='#'
+                    href="#"
                     className={styleMenu}>
                     Turmas
                   </a>
@@ -184,11 +184,11 @@ function Sidebar({ visible }) {
                   'hover:duration-500',
                 )}>
                 <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className='text-gray-500'>
+                  <div className="text-gray-500">
                     <Library></Library>
                   </div>
                   <a
-                    href='#'
+                    href="#"
                     className={styleMenu}>
                     Disciplinas
                   </a>
@@ -208,11 +208,11 @@ function Sidebar({ visible }) {
                   'hover:duration-500',
                 )}>
                 <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className='text-gray-500'>
+                  <div className="text-gray-500">
                     <ClipboardList></ClipboardList>
                   </div>
                   <a
-                    href='#'
+                    href="#"
                     className={styleMenu}>
                     Notas
                   </a>
@@ -232,11 +232,11 @@ function Sidebar({ visible }) {
                   'hover:duration-500',
                 )}>
                 <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className='text-gray-500'>
+                  <div className="text-gray-500">
                     <UserX></UserX>
                   </div>
                   <a
-                    href='#'
+                    href="#"
                     className={styleMenu}>
                     Faltas
                   </a>
@@ -256,11 +256,11 @@ function Sidebar({ visible }) {
                   'hover:duration-500',
                 )}>
                 <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className='text-gray-500'>
+                  <div className="text-gray-500">
                     <FileText></FileText>
                   </div>
                   <a
-                    href='#'
+                    href="#"
                     className={styleMenu}>
                     Relatórios
                   </a>
@@ -295,12 +295,12 @@ function Sidebar({ visible }) {
                     'duration-500',
                     'hover:duration-500',
                   )}>
-                  <div className='flex space-x-4 w-50'>
-                    <div className='text-gray-500'>
+                  <div className="flex space-x-4 w-50">
+                    <div className="text-gray-500">
                       <Settings></Settings>
                     </div>
                     <a
-                      href='#'
+                      href="#"
                       className={styleMenu}>
                       Configurações
                     </a>
@@ -321,14 +321,14 @@ function Sidebar({ visible }) {
                     'duration-500',
                     'hover:duration-500',
                   )}>
-                  <div className='flex space-x-3 w-50'>
+                  <div className="flex space-x-3 w-50">
                     <div>
                       <LogOut></LogOut>
                     </div>
 
                     <a
-                      href='#'
-                      className='cursor-default'>
+                      href="#"
+                      className="cursor-default">
                       Sair
                     </a>
                   </div>
