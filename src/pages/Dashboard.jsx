@@ -7,8 +7,8 @@ function Dashboard() {
   const [sidebarOpen, setsidebarOpen] = useState(false);
   return (
     <div>
-      {<Sidebar visible={sidebarOpen}></Sidebar>}
-      <div className=''>
+      <Sidebar visible={sidebarOpen}></Sidebar>
+      <div className="">
         <Header onMenuClick={() => setsidebarOpen(!sidebarOpen)}></Header>
       </div>
     </div>

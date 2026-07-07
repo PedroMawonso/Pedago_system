@@ -6,7 +6,7 @@ import logo from '../assets/graduacao.png';
 
 function Header({ onMenuClick }) {
   return (
-    <div className='fixed'>
+    <div className="fixed">
       <header
         className={cn(
           'flex',
@@ -33,6 +33,7 @@ function Header({ onMenuClick }) {
             'md:h-12',
             'lg:w-15',
             'lg:h-15',
+            'lg:ml-auto',
           )}></div>
       </header>
     </div>
