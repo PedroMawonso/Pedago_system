@@ -15,6 +15,7 @@ import {
   Settings,
   LogOut,
   SidebarOpen,
+  X,
 } from 'lucide-react';
 
 const styleMenu = cn(
@@ -39,15 +40,46 @@ function Sidebar({ visible }) {
       )}>
       <aside
         className={cn(
-          'w-64',
+          'w-68',
           'h-screen',
-          'lg:w-68',
+          'lg:w-78',
           'lg:space-y-10',
           'lg:overflow-hidden',
         )}>
         <div
-          className={cn('space-y-20', 'mt-25', 'lg:mt-35', '2xl:space-y-40')}>
-          <nav className={cn('max-h-64', 'overflow-y-auto')}>
+          className={cn(
+            'pt-8',
+            'pl-6',
+            'flex',
+            'items-center',
+            'space-x-6',
+            'lg:pt-8',
+            'lg:pl-10',
+          )}>
+          <img
+            src={logo}
+            alt='Logo_graduacao'
+            className={cn('w-8', 'h-8', 'lg:w-12', 'lg:h-12')}
+          />
+          <div>
+            <h1 className={cn('text-sm', 'font-semibold', 'lg:text-lg')}>
+              Sistema Acadêmico
+            </h1>
+            <p className={cn('text-sm', 'text-gray-500')}>Gestão Pedagógica</p>
+          </div>
+          <div className={cn('block', 'lg:hidden')}>
+            <X size={24} />
+          </div>
+        </div>
+        <div
+          className={cn(
+            'space-y-20',
+            'mt-10',
+            'lg:mt-15',
+            'lg:space-y-40',
+            '2xl:space-y-40',
+          )}>
+          <nav className={cn('max-h-64', 'overflow-y-auto', 'lg:max-h-full')}>
             <ul className={cn('ml-4', 'space-y-0', 'w-54', 'lg:ml-9')}>
               <li
                 className={cn(
@@ -64,11 +96,11 @@ function Sidebar({ visible }) {
                     'lg:space-x-4',
                     'lg:w-50',
                   )}>
-                  <div className="text-gray-400">
+                  <div className='text-gray-400'>
                     <LayoutDashboard></LayoutDashboard>
                   </div>
                   <a
-                    href="#"
+                    href='#'
                     className={styleMenu}>
                     Dashboard
                   </a>
@@ -88,11 +120,11 @@ function Sidebar({ visible }) {
                   'hover:duration-500',
                 )}>
                 <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className="text-gray-500">
+                  <div className='text-gray-500'>
                     <Users></Users>
                   </div>
                   <a
-                    href="#"
+                    href='#'
                     className={styleMenu}>
                     Professores
                   </a>
@@ -112,11 +144,11 @@ function Sidebar({ visible }) {
                   'hover:duration-500',
                 )}>
                 <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className="text-gray-500">
+                  <div className='text-gray-500'>
                     <CircleUser></CircleUser>
                   </div>
                   <a
-                    href="#"
+                    href='#'
                     className={styleMenu}>
                     Alunos
                   </a>
@@ -136,11 +168,11 @@ function Sidebar({ visible }) {
                   'hover:duration-500',
                 )}>
                 <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className="text-gray-500">
+                  <div className='text-gray-500'>
                     <BookOpen></BookOpen>
                   </div>
                   <a
-                    href="#"
+                    href='#'
                     className={styleMenu}>
                     Cursos
                   </a>
@@ -160,11 +192,11 @@ function Sidebar({ visible }) {
                   'hover:duration-500',
                 )}>
                 <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className="text-gray-500">
+                  <div className='text-gray-500'>
                     <UsersRound></UsersRound>
                   </div>
                   <a
-                    href="#"
+                    href='#'
                     className={styleMenu}>
                     Turmas
                   </a>
@@ -184,11 +216,11 @@ function Sidebar({ visible }) {
                   'hover:duration-500',
                 )}>
                 <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className="text-gray-500">
+                  <div className='text-gray-500'>
                     <Library></Library>
                   </div>
                   <a
-                    href="#"
+                    href='#'
                     className={styleMenu}>
                     Disciplinas
                   </a>
@@ -208,11 +240,11 @@ function Sidebar({ visible }) {
                   'hover:duration-500',
                 )}>
                 <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className="text-gray-500">
+                  <div className='text-gray-500'>
                     <ClipboardList></ClipboardList>
                   </div>
                   <a
-                    href="#"
+                    href='#'
                     className={styleMenu}>
                     Notas
                   </a>
@@ -232,11 +264,11 @@ function Sidebar({ visible }) {
                   'hover:duration-500',
                 )}>
                 <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className="text-gray-500">
+                  <div className='text-gray-500'>
                     <UserX></UserX>
                   </div>
                   <a
-                    href="#"
+                    href='#'
                     className={styleMenu}>
                     Faltas
                   </a>
@@ -256,11 +288,11 @@ function Sidebar({ visible }) {
                   'hover:duration-500',
                 )}>
                 <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className="text-gray-500">
+                  <div className='text-gray-500'>
                     <FileText></FileText>
                   </div>
                   <a
-                    href="#"
+                    href='#'
                     className={styleMenu}>
                     Relatórios
                   </a>
@@ -295,12 +327,12 @@ function Sidebar({ visible }) {
                     'duration-500',
                     'hover:duration-500',
                   )}>
-                  <div className="flex space-x-4 w-50">
-                    <div className="text-gray-500">
+                  <div className='flex space-x-4 w-50'>
+                    <div className='text-gray-500'>
                       <Settings></Settings>
                     </div>
                     <a
-                      href="#"
+                      href='#'
                       className={styleMenu}>
                       Configurações
                     </a>
@@ -321,14 +353,14 @@ function Sidebar({ visible }) {
                     'duration-500',
                     'hover:duration-500',
                   )}>
-                  <div className="flex space-x-3 w-50">
+                  <div className='flex space-x-3 w-50'>
                     <div>
                       <LogOut></LogOut>
                     </div>
 
                     <a
-                      href="#"
-                      className="cursor-default">
+                      href='#'
+                      className='cursor-default'>
                       Sair
                     </a>
                   </div>

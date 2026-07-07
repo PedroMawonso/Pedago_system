@@ -22,28 +22,7 @@ function Header({ onMenuClick }) {
           onClick={onMenuClick}>
           <Menu />
         </button>
-        <div
-          className={cn(
-            'pt-2',
-            'flex',
-            'items-center',
-            'space-x-5',
-            'lg:pt-8',
-            'lg:pl-10',
-          )}>
-          <img
-            src={logo}
-            alt='Logo_graduacao'
-            className={cn('w-8', 'h-8', 'lg:w-12', 'lg:h-12')}
-          />
 
-          <div>
-            <h1 className={cn('text-sm', 'font-semibold', 'lg:text-lg')}>
-              Sistema Acadêmico
-            </h1>
-            <p className={cn('text-sm', 'text-gray-500')}>Gestão Pedagógica</p>
-          </div>
-        </div>
         <div
           className={cn(
             'bg-gray-300',
