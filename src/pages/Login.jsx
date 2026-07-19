@@ -1,8 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import graduacao from '../assets/graduacao.png';
 import { twMerge as cn } from 'tailwind-merge';
+import { supabase } from '../lib/supabase';
 
 function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setErrorMsg(null);
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      setErrorMsg(error.message);
+    }
+    setLoading(false);
+  };
+
   return (
     <div
       className={cn(
@@ -12,12 +35,13 @@ function Login() {
         'justify-center',
         'items-center',
       )}>
-      <div
+      <form
+        onSubmit={handleLogin}
         className={cn(
           /* Mobile first */
           'rounded-xl',
           'w-80',
-          'p-5  ',
+          'p-5',
           'bg-[#ffffff]',
           'shadow-2xl',
           'space-y-2',
@@ -63,6 +87,13 @@ function Login() {
           )}>
           Gestão Pedagógica Completa
         </p>
+
+        {errorMsg && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative text-xs lg:text-sm text-center">
+            {errorMsg}
+          </div>
+        )}
+
         <div className=' space-y-4 lg:space-y-6'>
           <div className='space-y-2 lg:space-y-3'>
             <div className='text-[12px] lg:text-sm'>
@@ -70,8 +101,11 @@ function Login() {
             </div>
             <div>
               <input
-                type='text'
+                id='email'
+                type='email'
                 placeholder='usuario@gmail.com'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className={cn(
                   /* Mobile first */
                   'w-full',
@@ -79,7 +113,7 @@ function Login() {
                   'pb-2',
                   'pt-2',
                   'bg-gray-300',
-                  'focus: outline-gray-500',
+                  'focus:outline-gray-500',
                   'rounded-md',
                   'text-[12px]',
                   /* Desktop */
@@ -98,11 +132,10 @@ function Login() {
               className={cn(
                 'text-[12px]',
                 'flex justify-between',
-                'w-70',
+                'w-full',
                 'lg:text-sm',
-                'lg:w-94',
               )}>
-              <label htmlFor='email'>Senha</label>
+              <label htmlFor='password'>Senha</label>
               <a
                 href='#'
                 className={cn(
@@ -116,8 +149,11 @@ function Login() {
             </div>
             <div>
               <input
+                id='password'
                 type='password'
                 placeholder='*******'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className={cn(
                   /* Mobile first */
                   'w-full',
@@ -125,7 +161,7 @@ function Login() {
                   'pb-2',
                   'pt-2',
                   'bg-gray-300',
-                  'focus: outline-gray-500',
+                  'focus:outline-gray-500',
                   'rounded-md',
                   'text-[12px]',
                   /* Desktop */
@@ -142,7 +178,8 @@ function Login() {
           <div className='mt-5'>
             <div>
               <button
-                type='button'
+                type='submit'
+                disabled={loading}
                 className={cn(
                   /* Mobile first */
                   'w-full',
@@ -154,14 +191,22 @@ function Login() {
                   'text-[12px]',
                   'p-2',
                   /* Desktop */
-                  'lg:pl-4',
                   'lg:p-3',
                   'lg:text-sm',
-                )}
-                required>
-                Entrar no Sistema
+                  loading && 'opacity-50 cursor-not-allowed'
+                )}>
+                {loading ? 'Entrando...' : 'Entrar no Sistema'}
               </button>
             </div>
+          </div>
+
+          <div className="mt-8 text-center space-y-4">
+            <p className="text-sm text-gray-500">
+              Professor novo?{' '}
+              <Link to="/signup" className="text-gray-900 font-bold hover:underline">
+                Usar código de convite
+              </Link>
+            </p>
           </div>
 
           <p
@@ -174,7 +219,7 @@ function Login() {
             Acesso restrito a funcionários autorizados
           </p>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

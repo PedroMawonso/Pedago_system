@@ -1,9 +1,11 @@
 import React from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../assets/graduacao.png';
 import { twMerge as cn } from 'tailwind-merge';
+import { supabase } from '../lib/supabase';
+import { useAuth } from '../lib/AuthContext';
 import {
   LayoutDashboard,
-  ChevronRight,
   Users,
   CircleUser,
   BookOpen,
@@ -14,363 +16,136 @@ import {
   FileText,
   Settings,
   LogOut,
-  SidebarOpen,
   X,
+  Building2
 } from 'lucide-react';
 
-const styleMenu = cn(
-  'text-gray-700',
-  'cursor-default',
-  'text-sm',
-  'lg:text-[16px]',
-);
+const allNavItems = [
+  { icon: LayoutDashboard, label: 'Dashboard', to: '/dashboard', roles: ['admin', 'secretaria', 'direcao', 'pedagogia', 'professor'] },
+  { icon: Building2, label: 'Escolas', to: '/escolas', roles: ['admin'] },
+  { icon: Users, label: 'Utilizadores', to: '/professores', roles: ['admin', 'direcao', 'pedagogia'] },
+  { icon: CircleUser, label: 'Alunos', to: '/alunos', roles: ['secretaria'] },
+  { icon: BookOpen, label: 'Cursos', to: '/cursos', roles: ['direcao'] },
+  { icon: UsersRound, label: 'Turmas', to: '/turmas', roles: ['secretaria', 'pedagogia', 'professor'] },
+  { icon: Library, label: 'Disciplinas', to: '/disciplinas', roles: ['secretaria'] },
+  { icon: ClipboardList, label: 'Notas', to: '/notas', roles: ['professor'] },
+  { icon: UserX, label: 'Faltas', to: '/faltas', roles: ['professor'] },
+  { icon: FileText, label: 'Relatórios', to: '/relatorios', roles: ['admin', 'secretaria', 'direcao'] },
+];
 
-function Sidebar({ visible }) {
+function Sidebar({ visible, onClose }) {
+  const navigate = useNavigate();
+  const { profile } = useAuth();
+  
+  const userRole = profile?.role || '';
+  
+  // Filtrar itens pelo role
+  const navItems = allNavItems.filter(item => item.roles.includes(userRole));
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate('/');
+  };
+
   return (
-    <div
-      className={cn(
-        'bg-white',
-        'flex',
-        'fixed',
-        'overflow-y-auto',
-        'transition-transform',
-        'duration-300',
-        'lg:translate-x-0',
-        visible ? 'translate-x-0' : '-translate-x-full',
-      )}>
-      <aside
+    <>
+      {/* Overlay para mobile */}
+      {visible && (
+        <div
+          className="fixed inset-0 bg-black/40 z-20 lg:hidden"
+          onClick={onClose}
+        />
+      )}
+      <div
         className={cn(
-          'w-68',
-          'h-screen',
-          'lg:w-78',
-          'lg:space-y-10',
-          'lg:overflow-hidden',
+          'bg-white',
+          'flex',
+          'fixed',
+          'top-0',
+          'left-0',
+          'h-full',
+          'z-30',
+          'overflow-y-auto',
+          'transition-transform',
+          'duration-300',
+          'shadow-xl',
+          'lg:translate-x-0',
+          visible ? 'translate-x-0' : '-translate-x-full',
         )}>
-        <div
-          className={cn(
-            'pt-8',
-            'pl-6',
-            'flex',
-            'items-center',
-            'space-x-6',
-            'lg:pt-8',
-            'lg:pl-10',
-          )}>
-          <img
-            src={logo}
-            alt='Logo_graduacao'
-            className={cn('w-8', 'h-8', 'lg:w-12', 'lg:h-12')}
-          />
-          <div>
-            <h1 className={cn('text-sm', 'font-semibold', 'lg:text-lg')}>
-              Sistema Acadêmico
-            </h1>
-            <p className={cn('text-sm', 'text-gray-500')}>Gestão Pedagógica</p>
+        <aside className={cn('w-68', 'h-screen', 'lg:w-72', 'flex', 'flex-col')}>
+          {/* Logo */}
+          <div className={cn('pt-8', 'pl-6', 'pr-4', 'flex', 'items-center', 'justify-between', 'lg:pl-8')}>
+            <div className="flex items-center space-x-3">
+              <img src={logo} alt="Logo" className={cn('w-9', 'h-9', 'lg:w-11', 'lg:h-11')} />
+              <div>
+                <h1 className={cn('text-sm', 'font-bold', 'lg:text-base')}>Sistema Acadêmico</h1>
+                <p className={cn('text-xs', 'text-gray-500')}>Gestão Pedagógica</p>
+              </div>
+            </div>
+            <button onClick={onClose} className="block lg:hidden text-gray-400 hover:text-gray-700">
+              <X size={20} />
+            </button>
           </div>
-          <div className={cn('block', 'lg:hidden')}>
-            <X size={24} />
-          </div>
-        </div>
-        <div
-          className={cn(
-            'space-y-20',
-            'mt-10',
-            'lg:mt-15',
-            'lg:space-y-40',
-            '2xl:space-y-40',
-          )}>
-          <nav className={cn('max-h-64', 'overflow-y-auto', 'lg:max-h-full')}>
-            <ul className={cn('ml-4', 'space-y-0', 'w-54', 'lg:ml-9')}>
-              <li
-                className={cn(
-                  'flex',
-                  'space-x-13',
-                  'hover:bg-gray-200 rounded-md p-2 pt-3 pb-3',
-                  'duration-500',
-                  'hover:duration-500',
-                )}>
-                <div
-                  className={cn(
-                    'flex',
-                    'space-x-4',
-                    'lg:space-x-4',
-                    'lg:w-50',
-                  )}>
-                  <div className='text-gray-400'>
-                    <LayoutDashboard></LayoutDashboard>
-                  </div>
-                  <a
-                    href='#'
-                    className={styleMenu}>
-                    Dashboard
-                  </a>
-                </div>
 
-                <div>
-                  <ChevronRight></ChevronRight>
-                </div>
-              </li>
-
-              <li
-                className={cn(
-                  'flex',
-                  'space-x-10',
-                  'hover:bg-gray-200 rounded-md p-2 pt-3 pb-3',
-                  'duration-500',
-                  'hover:duration-500',
-                )}>
-                <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className='text-gray-500'>
-                    <Users></Users>
-                  </div>
-                  <a
-                    href='#'
-                    className={styleMenu}>
-                    Professores
-                  </a>
-                </div>
-
-                <div>
-                  <ChevronRight></ChevronRight>
-                </div>
-              </li>
-
-              <li
-                className={cn(
-                  'flex',
-                  'space-x-10',
-                  'hover:bg-gray-200 rounded-md p-2 pt-3 pb-3',
-                  'duration-500',
-                  'hover:duration-500',
-                )}>
-                <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className='text-gray-500'>
-                    <CircleUser></CircleUser>
-                  </div>
-                  <a
-                    href='#'
-                    className={styleMenu}>
-                    Alunos
-                  </a>
-                </div>
-
-                <div>
-                  <ChevronRight></ChevronRight>
-                </div>
-              </li>
-
-              <li
-                className={cn(
-                  'flex',
-                  'space-x-10',
-                  'hover:bg-gray-200 rounded-md p-2 pt-3 pb-3',
-                  'duration-500',
-                  'hover:duration-500',
-                )}>
-                <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className='text-gray-500'>
-                    <BookOpen></BookOpen>
-                  </div>
-                  <a
-                    href='#'
-                    className={styleMenu}>
-                    Cursos
-                  </a>
-                </div>
-
-                <div>
-                  <ChevronRight></ChevronRight>
-                </div>
-              </li>
-
-              <li
-                className={cn(
-                  'flex',
-                  'space-x-10',
-                  'hover:bg-gray-200 rounded-md p-2 pt-3 pb-3',
-                  'duration-500',
-                  'hover:duration-500',
-                )}>
-                <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className='text-gray-500'>
-                    <UsersRound></UsersRound>
-                  </div>
-                  <a
-                    href='#'
-                    className={styleMenu}>
-                    Turmas
-                  </a>
-                </div>
-
-                <div>
-                  <ChevronRight></ChevronRight>
-                </div>
-              </li>
-
-              <li
-                className={cn(
-                  'flex',
-                  'space-x-10',
-                  'hover:bg-gray-200 rounded-md p-2 pt-3 pb-3',
-                  'duration-500',
-                  'hover:duration-500',
-                )}>
-                <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className='text-gray-500'>
-                    <Library></Library>
-                  </div>
-                  <a
-                    href='#'
-                    className={styleMenu}>
-                    Disciplinas
-                  </a>
-                </div>
-
-                <div>
-                  <ChevronRight></ChevronRight>
-                </div>
-              </li>
-
-              <li
-                className={cn(
-                  'flex',
-                  'space-x-10',
-                  'hover:bg-gray-200 rounded-md p-2 pt-3 pb-3',
-                  'duration-500',
-                  'hover:duration-500',
-                )}>
-                <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className='text-gray-500'>
-                    <ClipboardList></ClipboardList>
-                  </div>
-                  <a
-                    href='#'
-                    className={styleMenu}>
-                    Notas
-                  </a>
-                </div>
-
-                <div>
-                  <ChevronRight></ChevronRight>
-                </div>
-              </li>
-
-              <li
-                className={cn(
-                  'flex',
-                  'space-x-10',
-                  'hover:bg-gray-200 rounded-md p-2 pt-3 pb-3',
-                  'duration-500',
-                  'hover:duration-500',
-                )}>
-                <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className='text-gray-500'>
-                    <UserX></UserX>
-                  </div>
-                  <a
-                    href='#'
-                    className={styleMenu}>
-                    Faltas
-                  </a>
-                </div>
-
-                <div>
-                  <ChevronRight></ChevronRight>
-                </div>
-              </li>
-
-              <li
-                className={cn(
-                  'flex',
-                  'space-x-10',
-                  'hover:bg-gray-200 rounded-md p-2 pt-3 pb-3',
-                  'duration-500',
-                  'hover:duration-500',
-                )}>
-                <div className={cn('flex', 'space-x-4', 'w-50')}>
-                  <div className='text-gray-500'>
-                    <FileText></FileText>
-                  </div>
-                  <a
-                    href='#'
-                    className={styleMenu}>
-                    Relatórios
-                  </a>
-                </div>
-
-                <div>
-                  <ChevronRight></ChevronRight>
-                </div>
-              </li>
+          {/* Nav */}
+          <nav className="flex-1 mt-8 px-4 overflow-y-auto">
+            <ul className="space-y-1">
+              {navItems.map(({ icon: Icon, label, to }) => (
+                <li key={to}>
+                  <NavLink
+                    to={to}
+                    onClick={onClose}
+                    className={({ isActive }) =>
+                      cn(
+                        'flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 group',
+                        isActive
+                          ? 'bg-gray-900 text-white'
+                          : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900',
+                      )
+                    }>
+                    {({ isActive }) => (
+                      <>
+                        <div className="flex items-center space-x-3">
+                          <Icon
+                            size={18}
+                            className={cn(isActive ? 'text-white' : 'text-gray-400 group-hover:text-gray-600')}
+                          />
+                          <span>{label}</span>
+                        </div>
+                      </>
+                    )}
+                  </NavLink>
+                </li>
+              ))}
             </ul>
           </nav>
 
-          <footer
-            className={cn(
-              'border-t',
-              'border-gray-300',
-              'pt-5',
-              'pb-5',
-              'text-center',
-            )}>
-            <nav>
-              <ul className={cn('ml-4', 'lg:ml-10', 'space-y-2', 'w-52')}>
-                <li
-                  className={cn(
-                    'flex',
-                    'space-x-6',
-                    'p-2',
-                    'pt-3',
-                    'pb-3',
-                    'rounded-md',
-                    'hover:bg-gray-200',
-                    'duration-500',
-                    'hover:duration-500',
-                  )}>
-                  <div className='flex space-x-4 w-50'>
-                    <div className='text-gray-500'>
-                      <Settings></Settings>
-                    </div>
-                    <a
-                      href='#'
-                      className={styleMenu}>
-                      Configurações
-                    </a>
-                  </div>
-                  <div>
-                    <ChevronRight></ChevronRight>
-                  </div>
-                </li>
+          {/* Footer */}
+          <footer className="border-t border-gray-100 p-4 space-y-1">
+            <NavLink
+              to="/configuracoes"
+              className={({ isActive }) =>
+                cn(
+                  'flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200',
+                  isActive
+                    ? 'bg-gray-900 text-white'
+                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900',
+                )
+              }>
+              <Settings size={18} className="text-gray-400" />
+              <span>Configurações</span>
+            </NavLink>
 
-                <li
-                  className={cn(
-                    'p-2',
-                    'pt-3',
-                    'pb-2',
-                    'text-red-600',
-                    'rounded-md',
-                    'hover:bg-red-200',
-                    'duration-500',
-                    'hover:duration-500',
-                  )}>
-                  <div className='flex space-x-3 w-50'>
-                    <div>
-                      <LogOut></LogOut>
-                    </div>
-
-                    <a
-                      href='#'
-                      className='cursor-default'>
-                      Sair
-                    </a>
-                  </div>
-                </li>
-              </ul>
-            </nav>
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 transition-all duration-200 cursor-pointer">
+              <LogOut size={18} />
+              <span>Sair do Sistema</span>
+            </button>
           </footer>
-        </div>
-      </aside>
-    </div>
+        </aside>
+      </div>
+    </>
   );
 }
 
