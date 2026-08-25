@@ -2,11 +2,14 @@
 // Edge Function: Criação de utilizadores sem perder a sessão do Admin.
 // Usa a SERVICE_ROLE_KEY (super-admin) para criar contas via Admin API.
 
+/// <reference lib="deno.ns" />
+
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers':
+    'authorization, x-client-info, apikey, content-type',
 };
 
 Deno.serve(async (req) => {
@@ -29,17 +32,18 @@ Deno.serve(async (req) => {
     const supabaseAdmin = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '',
-      { auth: { autoRefreshToken: false, persistSession: false } }
+      { auth: { autoRefreshToken: false, persistSession: false } },
     );
 
     // 3. Verificar que o chamador tem role de 'admin' (segurança extra)
     const supabaseUser = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
       Deno.env.get('SUPABASE_ANON_KEY') ?? '',
-      { global: { headers: { Authorization: authHeader } } }
+      { global: { headers: { Authorization: authHeader } } },
     );
-    const { data: { user } } = await supabaseUser.auth.getUser();
-    if (!user) {
+    const { data: userData, error: userError } = await supabaseUser.auth.getUser();
+    const user = userData?.user ?? null;
+    if (userError || !user) {
       return new Response(JSON.stringify({ error: 'Sessão inválida.' }), {
         status: 401,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -47,68 +51,71 @@ Deno.serve(async (req) => {
     }
 
     // Verificar o perfil do chamador
-    const { data: callerProfile } = await supabaseAdmin
+    const { data: callerProfile, error: callerError } = await supabaseAdmin
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .single<{ role: string }>();
 
-    if (!callerProfile || callerProfile.role !== 'admin') {
-      return new Response(JSON.stringify({ error: 'Apenas o Admin pode criar utilizadores.' }), {
-        status: 403,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
+    if (callerError || !callerProfile || callerProfile.role !== 'admin') {
+      return new Response(
+        JSON.stringify({ error: 'Apenas o Admin pode criar utilizadores.' }),
+        {
+          status: 403,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        },
+      );
     }
 
     // 4. Obter dados do corpo do pedido
     const { email, password, nome, role, escola_id } = await req.json();
 
     if (!email || !password || !role) {
-      return new Response(JSON.stringify({ error: 'Email, password e role são obrigatórios.' }), {
-        status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
+      return new Response(
+        JSON.stringify({ error: 'Email, password e role são obrigatórios.' }),
+        {
+          status: 400,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        },
+      );
     }
 
     // 5. Criar o utilizador via Admin API (não afeta a sessão do frontend!)
-    const { data: newUser, error: createError } = await supabaseAdmin.auth.admin.createUser({
-      email,
-      password,
-      email_confirm: true, // Confirmar o email automaticamente (sem precisar de verificação)
-      user_metadata: { full_name: nome },
-    });
+    const { data: newUser, error: createError } =
+      await supabaseAdmin.auth.admin.createUser({
+        email,
+        password,
+        email_confirm: true, // Confirmar o email automaticamente (sem precisar de verificação)
+        user_metadata: { full_name: nome },
+      });
 
     if (createError) throw createError;
+    if (!newUser?.user) throw new Error('Falha ao criar utilizador: resposta inválida da API.');
 
-    // 6. Atualizar o perfil com role, nome e escola_id
-    // (O trigger on_auth_user_created já criou o registo base)
+    // 6. Fazer upsert do perfil com role, nome e escola_id
+    // (cobre o caso em que o trigger on_auth_user_created ainda não correu)
     const { error: profileError } = await supabaseAdmin
       .from('profiles')
-      .update({
-        nome: nome,
-        role: role,
-        escola_id: escola_id || null,
-      })
-      .eq('id', newUser.user.id);
-
-    if (profileError) {
-      // Se o trigger ainda não criou o profile, inserir manualmente
-      await supabaseAdmin.from('profiles').insert({
+      .upsert({
         id: newUser.user.id,
         email: email,
         nome: nome,
         role: role,
         escola_id: escola_id || null,
       });
-    }
 
-    return new Response(JSON.stringify({ success: true, user_id: newUser.user.id }), {
-      status: 200,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    });
+    if (profileError) throw profileError;
 
-  } catch (err) {
-    return new Response(JSON.stringify({ error: err.message }), {
+    return new Response(
+      JSON.stringify({ success: true, user_id: newUser.user.id }),
+      {
+        status: 200,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      },
+    );
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erro desconhecido.';
+    return new Response(JSON.stringify({ error: message }), {
       status: 400,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });

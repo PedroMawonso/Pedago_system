@@ -8,7 +8,7 @@ function AppLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
       <Sidebar visible={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <div className="lg:pl-72">
         <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} />

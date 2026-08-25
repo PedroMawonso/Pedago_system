@@ -34,11 +34,17 @@ export function AuthProvider({ children }) {
   }, []);
 
   const fetchProfile = async (userId) => {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', userId)
       .single();
+    
+    if (error) {
+      console.warn("⚠️ [Pedago System] Não foi possível carregar o perfil do utilizador:", error.message);
+      console.warn("Isso acontece se a tabela 'profiles' não tiver um registo correspondente para o ID:", userId);
+      console.warn("Execute o SQL de inserção no Dashboard para criar o perfil.");
+    }
     setProfile(data);
   };
 
