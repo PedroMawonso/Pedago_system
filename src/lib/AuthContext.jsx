@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { supabase } from './supabase';
 
 const AuthContext = createContext();
@@ -6,6 +6,7 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [session, setSession] = useState(undefined); // undefined = loading
   const [profile, setProfile] = useState(null);
+  const [loggingOut, setLoggingOut] = useState(false);
 
   useEffect(() => {
     // Busca inicial
@@ -48,8 +49,16 @@ export function AuthProvider({ children }) {
     setProfile(data);
   };
 
+  const handleLogout = useCallback(async () => {
+    setLoggingOut(true);
+    // Pequeno atraso para mostrar o ecrã de transição
+    await new Promise(resolve => setTimeout(resolve, 1200));
+    await supabase.auth.signOut();
+    setLoggingOut(false);
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ session, profile, loading: session === undefined }}>
+    <AuthContext.Provider value={{ session, profile, loading: session === undefined, loggingOut, handleLogout }}>
       {children}
     </AuthContext.Provider>
   );
@@ -58,3 +67,4 @@ export function AuthProvider({ children }) {
 export function useAuth() {
   return useContext(AuthContext);
 }
+

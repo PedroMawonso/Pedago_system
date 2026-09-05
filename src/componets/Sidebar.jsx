@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import logo from '../assets/graduacao.png';
 import { twMerge as cn } from 'tailwind-merge';
-import { supabase } from '../lib/supabase';
 import { useAuth } from '../lib/AuthContext';
 import {
   LayoutDashboard,
@@ -47,8 +46,7 @@ const allNavItems = [
 ];
 
 function Sidebar({ visible, onClose }) {
-  const navigate = useNavigate();
-  const { profile } = useAuth();
+  const { profile, handleLogout } = useAuth();
   
   const userRole = profile?.role || '';
   
@@ -73,11 +71,6 @@ function Sidebar({ visible, onClose }) {
   const navItems = userRole
     ? allNavItems.filter(item => item.roles.includes(userRole))
     : [];
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    navigate('/');
-  };
 
   return (
     <>

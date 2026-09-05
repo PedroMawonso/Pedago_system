@@ -7,6 +7,12 @@
     <title>pedago-system</title>
   </head>
   <body>
+    <script>
+      // Apply dark mode before React renders to avoid flash of wrong theme
+      if (localStorage.getItem('pedago-dark-mode') === 'true') {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

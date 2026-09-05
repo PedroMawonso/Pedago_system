@@ -34,6 +34,9 @@ function Login() {
         'h-screen',
         'justify-center',
         'items-center',
+        'bg-gray-50',
+        'dark:bg-slate-950',
+        'transition-colors',
       )}>
       <form
         onSubmit={handleLogin}
@@ -42,9 +45,12 @@ function Login() {
           'rounded-xl',
           'w-80',
           'p-5',
-          'bg-[#ffffff]',
+          'bg-white',
           'shadow-2xl',
           'space-y-2',
+          /* Dark mode */
+          'dark:bg-slate-900',
+          'dark:shadow-slate-900/50',
           /* Desktop */
           'lg:max-w-md',
           'lg:space-y-4',
@@ -71,6 +77,8 @@ function Login() {
             'text-center',
             'text-lg',
             'font-bold',
+            'text-gray-900',
+            'dark:text-slate-100',
             /* Desktop */
             'lg:text-3xl',
           )}>
@@ -82,6 +90,7 @@ function Login() {
             'text-center',
             'text-[12px]',
             'text-gray-500',
+            'dark:text-slate-400',
             /* Desktop */
             'lg:text-sm',
           )}>
@@ -89,14 +98,14 @@ function Login() {
         </p>
 
         {errorMsg && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative text-xs lg:text-sm text-center">
+          <div className="bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-2 rounded relative text-xs lg:text-sm text-center">
             {errorMsg}
           </div>
         )}
 
         <div className=' space-y-4 lg:space-y-6'>
           <div className='space-y-2 lg:space-y-3'>
-            <div className='text-[12px] lg:text-sm'>
+            <div className='text-[12px] lg:text-sm text-gray-700 dark:text-slate-300'>
               <label htmlFor='email'>Email do usuário</label>
             </div>
             <div>
@@ -112,10 +121,17 @@ function Login() {
                   'pl-4',
                   'pb-2',
                   'pt-2',
-                  'bg-gray-300',
+                  'bg-gray-100',
                   'focus:outline-gray-500',
                   'rounded-md',
                   'text-[12px]',
+                  'text-gray-900',
+                  'placeholder-gray-400',
+                  /* Dark mode */
+                  'dark:bg-slate-800',
+                  'dark:text-slate-200',
+                  'dark:placeholder-slate-500',
+                  'dark:focus:outline-slate-500',
                   /* Desktop */
                   'lg:pl-5',
                   'lg:pb-3',
@@ -133,6 +149,8 @@ function Login() {
                 'text-[12px]',
                 'flex justify-between',
                 'w-full',
+                'text-gray-700',
+                'dark:text-slate-300',
                 'lg:text-sm',
               )}>
               <label htmlFor='password'>Senha</label>
@@ -140,6 +158,7 @@ function Login() {
                 href='#'
                 className={cn(
                   'text-blue-600',
+                  'dark:text-blue-400',
                   'text-[11px]',
                   'lg:text-sm',
                   'lg:font-bold',
@@ -160,10 +179,17 @@ function Login() {
                   'pl-4',
                   'pb-2',
                   'pt-2',
-                  'bg-gray-300',
+                  'bg-gray-100',
                   'focus:outline-gray-500',
                   'rounded-md',
                   'text-[12px]',
+                  'text-gray-900',
+                  'placeholder-gray-400',
+                  /* Dark mode */
+                  'dark:bg-slate-800',
+                  'dark:text-slate-200',
+                  'dark:placeholder-slate-500',
+                  'dark:focus:outline-slate-500',
                   /* Desktop */
                   'lg:pl-5',
                   'lg:pb-3',
@@ -185,14 +211,20 @@ function Login() {
                   'w-full',
                   'rounded-md',
                   'cursor-pointer',
-                  'bg-[#030213]',
+                  'bg-gray-900',
                   'text-white',
                   'font-bold',
                   'text-[12px]',
                   'p-2',
+                  'hover:bg-gray-700',
+                  /* Dark mode */
+                  'dark:bg-slate-100',
+                  'dark:text-slate-900',
+                  'dark:hover:bg-slate-200',
                   /* Desktop */
                   'lg:p-3',
                   'lg:text-sm',
+                  'transition-colors',
                   loading && 'opacity-50 cursor-not-allowed'
                 )}>
                 {loading ? 'Entrando...' : 'Entrar no Sistema'}
@@ -201,9 +233,9 @@ function Login() {
           </div>
 
           <div className="mt-8 text-center space-y-4">
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 dark:text-slate-400">
               Professor novo?{' '}
-              <Link to="/signup" className="text-gray-900 font-bold hover:underline">
+              <Link to="/signup" className="text-gray-900 dark:text-slate-100 font-bold hover:underline">
                 Usar código de convite
               </Link>
             </p>
@@ -214,6 +246,7 @@ function Login() {
               'text-center',
               'text-[11px]',
               'text-gray-500',
+              'dark:text-slate-400',
               'lg:text-md',
             )}>
             Acesso restrito a funcionários autorizados
